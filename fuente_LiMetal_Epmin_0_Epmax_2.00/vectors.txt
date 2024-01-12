@@ -1,0 +1,7 @@
+#include <vector>
+
+vector<openmc::Tabular> ang_dists;
+
+openmc::Tabular ds(*args);
+
+ang_dists.push_back(ds);
