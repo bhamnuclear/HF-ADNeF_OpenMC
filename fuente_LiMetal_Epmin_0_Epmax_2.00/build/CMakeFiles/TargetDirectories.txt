@@ -1,3 +1,0 @@
-/home/ADF/mjc970/Documents/High Flux Neutron Source/OpenMC_Simulation/UOB_HFNF/fuente_LiMetal_Epmin_0_Epmax_2.00/build/CMakeFiles/source.dir
-/home/ADF/mjc970/Documents/High Flux Neutron Source/OpenMC_Simulation/UOB_HFNF/fuente_LiMetal_Epmin_0_Epmax_2.00/build/CMakeFiles/edit_cache.dir
-/home/ADF/mjc970/Documents/High Flux Neutron Source/OpenMC_Simulation/UOB_HFNF/fuente_LiMetal_Epmin_0_Epmax_2.00/build/CMakeFiles/rebuild_cache.dir
