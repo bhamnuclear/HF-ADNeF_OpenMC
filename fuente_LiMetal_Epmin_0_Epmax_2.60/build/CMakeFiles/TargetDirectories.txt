@@ -1,3 +1,0 @@
-/home/ADF/mjc970/Documents/High Flux Neutron Source/Files from Ben/Linux/fuente_LiMetal_Epmin_0_Epmax_2.60/build/CMakeFiles/source.dir
-/home/ADF/mjc970/Documents/High Flux Neutron Source/Files from Ben/Linux/fuente_LiMetal_Epmin_0_Epmax_2.60/build/CMakeFiles/edit_cache.dir
-/home/ADF/mjc970/Documents/High Flux Neutron Source/Files from Ben/Linux/fuente_LiMetal_Epmin_0_Epmax_2.60/build/CMakeFiles/rebuild_cache.dir
