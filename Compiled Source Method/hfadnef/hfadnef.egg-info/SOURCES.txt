@@ -1,0 +1,8 @@
+setup.py
+hfadnef/__init__.py
+hfadnef/hfadnef_model.py
+hfadnef.egg-info/PKG-INFO
+hfadnef.egg-info/SOURCES.txt
+hfadnef.egg-info/dependency_links.txt
+hfadnef.egg-info/not-zip-safe
+hfadnef.egg-info/top_level.txt

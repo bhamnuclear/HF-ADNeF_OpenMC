@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/ADF/mjc970/Documents/High Flux Neutron Source/Python Module/hfadnef/hfadnef/src/build",
+  "command": "/usr/bin/c++ -DGSL_THROW_ON_CONTRACT_VIOLATION -Dgsl_CONFIG_ALLOWS_NONSTRICT_SPAN_COMPARISON=1 -Dgsl_CONFIG_DEFAULTS_VERSION=1 -Dsource_EXPORTS -isystem /usr/include/hdf5/serial -g -fPIC -o CMakeFiles/source.dir/n_source.cpp.o -c \"/home/ADF/mjc970/Documents/High Flux Neutron Source/Python Module/hfadnef/hfadnef/src/n_source.cpp\"",
+  "file": "/home/ADF/mjc970/Documents/High Flux Neutron Source/Python Module/hfadnef/hfadnef/src/n_source.cpp"
+}
+]
