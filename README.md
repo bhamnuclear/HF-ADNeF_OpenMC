@@ -8,7 +8,7 @@ These files are based off of MCNP input cards, where a C++ file is written for v
 
 ### Compiled Source Method
 This is a sinlgle C++ file that takes a proton energy as an input and samples initial neutron parameters from physical principles.
-_Currently a work in progress._
+_Currently a work in progress. Spatial distributions do not agree._
 
 ### Usage
 If you use this code in your work, please reference it accordingly. I will be writing this up as part of my PhD and will update this github when that happens. Please contact me for more information at m.j.conroy@pgr.bham.ac.uk.
