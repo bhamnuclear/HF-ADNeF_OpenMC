@@ -27,7 +27,7 @@ class Li_source : public openmc::Source {
 		// Define particle type
 		particle.particle = openmc::ParticleType::neutron;    
 		// Define particle weight
-		particle.wgt = 1;//1.121487e+11;
+		particle.wgt = 1.121487e+11;
 
 		// Initialise required variables    
 		double energy {0.0};
