@@ -685,11 +685,11 @@ class Li_source : public openmc::Source {
 		particle.u = {std::sin(theta)*std::cos(phi), std::sin(theta)*std::sin(phi), mu};
 
 		// Sample particle starting position
-		openmc::PowerLaw r_dist(0, 5, 1);    
-		pos_r = r_dist.sample(seed);    
-		pos_ang = 2.0 * M_PI * openmc::prn(seed);    
+		openmc::Normal r_dist(0, 1.7);    
+		double x_pos = r_dist.sample(seed);    
+		double y_pos = r_dist.sample(seed);    
 		// Set position of particle    
-		particle.r = {pos_r*std::cos(pos_ang), pos_r*std::sin(pos_ang) - 42, 0.0};
+		particle.r = {x_pos, y_pos - 42, 0.0};
 
 		// Return particle    
 		return particle;    

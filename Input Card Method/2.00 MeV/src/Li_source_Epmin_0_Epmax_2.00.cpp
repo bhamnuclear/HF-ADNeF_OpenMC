@@ -27,15 +27,15 @@ class Li_source : public openmc::Source {
 		// Define particle type
 		particle.particle = openmc::ParticleType::neutron;    
 		// Define particle weight
-		particle.wgt = 1.121487e+11;
+		particle.wgt = 1;//1.121487e+11;
 
 		// Initialise required variables    
 		double energy {0.0};
 		double mu {0.0};    
 		double theta {0.0};
 		double phi {0.0};    
-		double pos_r {0.0};
-		double pos_ang {0.0};
+		//double pos_r {0.0};
+		//double pos_ang {0.0};
 
 		// Define energies and probabilities for distribution    
 		double energies[103] = {     0.,  1000.,  2000.,  3000.,  4000.,  7000., 12000., 16000., 22000.,
@@ -543,12 +543,16 @@ class Li_source : public openmc::Source {
 		particle.u = {std::sin(theta)*std::cos(phi), std::sin(theta)*std::sin(phi), mu};
 
 		// Sample particle starting position
-		openmc::PowerLaw r_dist(0, 5, 1);    
-		pos_r = r_dist.sample(seed);    
-		pos_ang = 2.0 * M_PI * openmc::prn(seed);    
+		//openmc::PowerLaw r_dist(0, 5, 1);    
+		openmc::Normal r_dist(0, 1.7);
+		// Sample the position of iteraction in the x-y plane
+		double x_pos = r_dist.sample(seed);
+    		double y_pos = r_dist.sample(seed);
+		//pos_r = r_dist.sample(seed);    
+		//pos_ang = 2.0 * M_PI * openmc::prn(seed);    
 		// Set position of particle    
-		particle.r = {pos_r*std::cos(pos_ang), pos_r*std::sin(pos_ang) - 42, 0.0};
-
+		particle.r = {x_pos, y_pos - 42, 0.0};	
+		//particle.r = {0., -42., 0.};
 		// Return particle    
 		return particle;    
 	}    
