@@ -24,7 +24,7 @@ public:
     // Set particle type to neutron
     particle.particle = openmc::ParticleType::neutron;
     // Interpolate strength of source (per mC) for input proton energy
-    particle.wgt = linInterp(yield_E, yield_N, Ep_);
+    particle.wgt = 1;//1.121487e+11;//linInterp(yield_E, yield_N, Ep_);
     // Normal distribution for position sampling (centred at 0 with 1.7 cm stdev)
     openmc::Normal r_dist(0, 1.7);
     // Sample the position of iteraction in the x-y plane
@@ -73,6 +73,7 @@ public:
     
     // Set neutron position (-42 cm for beam y offset from model origin)
     particle.r = {x_pos, y_pos - 42, z_pos};
+    //particle.r = {0., -42., 0.};
     return particle;
   }
 
