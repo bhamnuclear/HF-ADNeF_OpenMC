@@ -32,9 +32,7 @@ public:
     particle.particle = openmc::ParticleType::neutron;
     // Interpolate strength of source (per mC) for input proton energy
     particle.wgt = linInterp(yield_E, yield_N, Ep_);
-    // Normal distribution for position sampling (centred at 0 with 1.7 cm stdev)
-    openmc::Normal r_dist(0, 1.7);
-    // Sample particle starting position in x-y plane
+    // Sample particle starting position in x-y plane (10 cm disk)
     openmc::PowerLaw r_dist(0, 5, 1);
     double pos_r = r_dist.sample(seed);
     double pos_ang = 2.0 * M_PI * openmc::prn(seed);
