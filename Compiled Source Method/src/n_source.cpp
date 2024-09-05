@@ -1,3 +1,9 @@
+/*
+A C++ source file for OpenMC to give neutron spectra produced via the 7Li(p,n)7Be reaction.
+
+Author: Max Conroy (m.j.conroy@pgr.bham.ac.uk)
+*/
+
 #include <memory> // for unique_ptr
 #include <fstream>
 #include <cmath>
@@ -7,6 +13,7 @@
 #include "openmc/particle.h"
 #include "spline.h"
 
+// EDIT THIS TO CHANGE WHERE THE CROSS SECTION DATA ARE STORED
 std::string FilePath = "/home/ADF/mjc970/Documents/High Flux Neutron Source/Python Module/hfadnef/";
 
 class CompiledSource : public openmc::Source {
@@ -260,7 +267,7 @@ private:
       if (energy < 1.925) {
         // Constants and equation from Lee and Zhou
         double C0 = 6; // Consistent with Gibbons and Macklin XS data
-        double A = 164.913; // mb MeV/sr
+        double A = 169.72; // mb MeV/sr
         double x = C0*std::sqrt(1-Ethresh/energy);
         XS = 4.*M_PI*(A*x)/(energy*(1+x)*(1+x));
       }
