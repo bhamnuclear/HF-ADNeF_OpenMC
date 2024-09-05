@@ -34,9 +34,13 @@ public:
     particle.wgt = linInterp(yield_E, yield_N, Ep_);
     // Normal distribution for position sampling (centred at 0 with 1.7 cm stdev)
     openmc::Normal r_dist(0, 1.7);
+    // Sample particle starting position in x-y plane
+    openmc::PowerLaw r_dist(0, 5, 1);
+    double pos_r = r_dist.sample(seed);
+    double pos_ang = 2.0 * M_PI * openmc::prn(seed);
     // Sample the position of iteraction in the x-y plane
-    double x_pos = r_dist.sample(seed);
-    double y_pos = r_dist.sample(seed);
+    double x_pos = pos_r*std::cos(pos_ang);//r_dist.sample(seed);
+    double y_pos = pos_r*std::sin(pos_ang);;//r_dist.sample(seed);
     // Set placeholder z positions and angle. These will be changed later by reference
     double z_pos = 0.0; 
     particle.u = {0.0, 0.0, 1.0};
@@ -80,6 +84,7 @@ public:
     
     // Set neutron position (-42 cm for beam y offset from model origin)
     particle.r = {x_pos, y_pos - 42, z_pos};
+    particle.r = {pos_r*std::cos(pos_ang), pos_r*std::sin(pos_ang) - 42, z_pos}; 
     //particle.r = {0., -42., 0.};
     return particle;
   }
