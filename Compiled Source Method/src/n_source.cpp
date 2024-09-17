@@ -82,7 +82,7 @@ public:
     
     // Set neutron position (-42 cm for beam y offset from model origin)
     particle.r = {x_pos, y_pos - 42, z_pos};
-    particle.r = {pos_r*std::cos(pos_ang), pos_r*std::sin(pos_ang) - 42, z_pos}; 
+    //particle.r = {pos_r*std::cos(pos_ang), pos_r*std::sin(pos_ang) - 42, z_pos}; 
     //particle.r = {0., -42., 0.};
     return particle;
   }
@@ -129,10 +129,10 @@ private:
     std::cout << " Reading data for compiled source..." << std::endl;
     // Load total XS_t data
     // std::ifstream file0("/home/ADF/mjc970/Documents/High Flux Neutron Source/Python Module/hfadnef/hfadnef/src/XS_t_endf.txt");
-    std::ifstream file0(FilePath + "hfadnef/src/XS_t_endf.txt");
+    std::ifstream file0(FilePath + "hfadnef/src/XS_t.txt");
     if (!file0.is_open()) {
       // Handle file opening error
-      throw std::runtime_error("Failed to open file: XS_t_endf.txt");
+      throw std::runtime_error("Failed to open file: XS_t.txt");
     }
 
     double value1, value2, value3, value4;
@@ -148,7 +148,7 @@ private:
     std::ifstream file1(FilePath + "hfadnef/src/XS_0.txt");
     if (!file1.is_open()) {
       // Handle file opening error
-      throw std::runtime_error("Failed to open file: XS_0_endf.txt");
+      throw std::runtime_error("Failed to open file: XS_0.txt");
     }
     while (file1 >> value1 >> value2) {
       //std::cout << "XS_0" << Ep_ << std::endl;
@@ -161,7 +161,7 @@ private:
     std::ifstream file2(FilePath + "hfadnef/src/XS_1.txt");
     if (!file2.is_open()) {
       // Handle file opening error
-      throw std::runtime_error("Failed to open file: XS_1_endf.txt");
+      throw std::runtime_error("Failed to open file: XS_1.txt");
     }
     while (file2 >> value1 >> value2) {
       //std::cout << "XS_1" << Ep_ << std::endl;
