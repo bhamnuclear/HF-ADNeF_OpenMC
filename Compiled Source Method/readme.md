@@ -5,7 +5,7 @@ The src folder contains the .cpp file which samples neutron starting conditions 
 
 To use the code, first compile it via:
 
-```cmake --S src --B build```
+```cmake -S src -B build```
 
 Then:
 

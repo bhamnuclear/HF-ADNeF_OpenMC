@@ -1,0 +1,22 @@
+First install OpenMC using the instructions here at the top:
+https://docs.openmc.org/en/latest/quickinstall.html
+
+Make sure that when doing OpenMC stuff you are in the conda environment for openmc-env. It may be worth adding an alias to your .bashrc to run this when needed
+
+You also need to download the data needed for OpenMC: https://openmc.org/official-data-libraries/
+Download this, untar it to a save folder and then add the path to the cross_sections.xml file to your bashrc e.g.: export OPENMC_CROSS_SECTIONS="/home/jeb/openmcdata/endfb-viii.0-hdf5/cross_sections.xml"
+
+Then, follow Max's instructions for making the compiled source object (cmake -S src -B build; cmake --build build)
+
+Then you can use the examples folder .ipynb file. Make sure to open this in the terminal that is the conda environment (you will have (base) or similar at the start of the terminal line). 
+
+jupyter lab cobalt-film-sim.ipynb
+
+will then open the jupyter notebook and then you should be able to run everything.
+
+---------------
+POSSIBLE ERRORS
+----------------
+If the first line of importing openmc doesn't work check that you are definitely in the conda environment, if it complains about xml reading then make sure your OPENMC_CROSS_SECTIONS file is correct
+It may also complain about data when you start to run the simulation itself
+More possible errors will be added as they are found
