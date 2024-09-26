@@ -14,7 +14,7 @@ Author: Max Conroy (m.j.conroy@pgr.bham.ac.uk)
 #include "spline.h"
 
 // EDIT THIS TO CHANGE WHERE THE CROSS SECTION DATA ARE STORED
-std::string FilePath = "/home/ADF/mjc970/Documents/High Flux Neutron Source/Python Module/hfadnef/";
+std::string FilePath = "/home/ADF/mjc970/Documents/High Flux Neutron Source/SOURCE_FILES/Compiled Source Method/src/";
 
 class CompiledSource : public openmc::Source {
 
@@ -129,10 +129,10 @@ private:
     std::cout << " Reading data for compiled source..." << std::endl;
     // Load total XS_t data
     // std::ifstream file0("/home/ADF/mjc970/Documents/High Flux Neutron Source/Python Module/hfadnef/hfadnef/src/XS_t_endf.txt");
-    std::ifstream file0(FilePath + "hfadnef/src/XS_t.txt");
+    std::ifstream file0(FilePath + "XS_t_ideal.txt");
     if (!file0.is_open()) {
       // Handle file opening error
-      throw std::runtime_error("Failed to open file: XS_t.txt");
+      throw std::runtime_error("Failed to open file: XS_t_ideal.txt");
     }
 
     double value1, value2, value3, value4;
@@ -145,7 +145,7 @@ private:
     file0.close();
 
     // Load total XS_0 data
-    std::ifstream file1(FilePath + "hfadnef/src/XS_0.txt");
+    std::ifstream file1(FilePath + "XS_0.txt");
     if (!file1.is_open()) {
       // Handle file opening error
       throw std::runtime_error("Failed to open file: XS_0.txt");
@@ -158,7 +158,7 @@ private:
     file1.close();
 
     // Load total XS_1 data
-    std::ifstream file2(FilePath + "hfadnef/src/XS_1.txt");
+    std::ifstream file2(FilePath + "XS_1.txt");
     if (!file2.is_open()) {
       // Handle file opening error
       throw std::runtime_error("Failed to open file: XS_1.txt");
@@ -171,7 +171,7 @@ private:
     file2.close();
 
     // Load angular distribution data for ground state
-    std::ifstream file3(FilePath + "hfadnef/src/XS_ang0.txt");
+    std::ifstream file3(FilePath + "XS_ang0.txt");
     if (!file3.is_open()) {
       // Handle file opening error
       throw std::runtime_error("Failed to open file: XS_ang0.txt");
@@ -192,7 +192,7 @@ private:
 
     
     // Load angular distribution data for excited state
-    std::ifstream file4(FilePath + "hfadnef/src/XS_ang1.txt");
+    std::ifstream file4(FilePath + "XS_ang1.txt");
     if (!file4.is_open()) {
       // Handle file opening error
       throw std::runtime_error("Failed to open file: XS_ang1.txt");
@@ -206,7 +206,7 @@ private:
     file4.close(); 
 
     // Load yield data
-    std::ifstream file5(FilePath + "hfadnef/src/yield.txt");
+    std::ifstream file5(FilePath + "yield.txt");
     if (!file5.is_open()) {
       // Handle file opening error
       throw std::runtime_error("Failed to open file: yield.txt");
