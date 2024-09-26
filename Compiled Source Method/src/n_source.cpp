@@ -270,7 +270,7 @@ private:
       if (energy < 1.925) {
         // Constants and equation from Lee and Zhou
         double C0 = 6; // Consistent with Gibbons and Macklin XS data
-        double A = 169.72; // mb MeV/sr
+        double A = 164.913; // mb MeV/sr
         double x = C0*std::sqrt(1-Ethresh/energy);
         XS = 4.*M_PI*(A*x)/(energy*(1+x)*(1+x));
       }
