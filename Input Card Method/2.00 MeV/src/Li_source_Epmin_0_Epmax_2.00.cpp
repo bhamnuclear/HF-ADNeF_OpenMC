@@ -34,8 +34,8 @@ class Li_source : public openmc::Source {
 		double mu {0.0};    
 		double theta {0.0};
 		double phi {0.0};    
-		//double pos_r {0.0};
-		//double pos_ang {0.0};
+		double pos_r {0.0};
+		double pos_ang {0.0};
 
 		// Define energies and probabilities for distribution    
 		double energies[103] = {     0.,  1000.,  2000.,  3000.,  4000.,  7000., 12000., 16000., 22000.,
@@ -541,15 +541,15 @@ class Li_source : public openmc::Source {
 
 		// Set directional vector    
 		particle.u = {std::sin(theta)*std::cos(phi), std::sin(theta)*std::sin(phi), mu};
-
-		// Sample particle starting position
-		//openmc::PowerLaw r_dist(0, 5, 1);    
-		openmc::Normal r_dist(0, 1.7);
-		// Sample the position of iteraction in the x-y plane
-		double x_pos = r_dist.sample(seed);
-    		double y_pos = r_dist.sample(seed);
-		//pos_r = r_dist.sample(seed);    
-		//pos_ang = 2.0 * M_PI * openmc::prn(seed);    
+		
+		// Sample particle starting position in x-y plane (10 cm disk)
+		openmc::PowerLaw r_dist(0,5,1);
+		pos_r = r_dist.sample(seed);
+		pos_ang = 2.0*M_PI*openmc::prn(seed);
+		
+		double x_pos = pos_r*std::cos(pos_ang);
+		double y_pos = pos_r*std::sin(pos_ang);
+		   
 		// Set position of particle    
 		particle.r = {x_pos, y_pos - 42, 0.0};	
 		//particle.r = {0., -42., 0.};
