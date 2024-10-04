@@ -383,6 +383,9 @@ private:
     // First, check if Be is excited. If so, this energy needs to be accounted for in the kinematics
     double Ex = 0.0;
     if (*excited == true) {
+      static std::mutex lock;
+      std::lock_guard guard{ lock };
+      std::cout << "EXCITED" << std::endl; // Output cos(theta) for logging
       Ex = 0.477;
     }
     // Now, complete kinematics
@@ -408,7 +411,7 @@ private:
     double Ex = 0.0;
     if (*excited == true) {
       //std::cout << "Exciting..." << std::endl;
-      Ex = 0.431;
+      Ex = 0.429;
     }
     // Compute centre of mass energy
     double ECM = mLi*Ep/(mLi+mp)+Q-Ex;
