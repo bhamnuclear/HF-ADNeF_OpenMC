@@ -383,9 +383,6 @@ private:
     // First, check if Be is excited. If so, this energy needs to be accounted for in the kinematics
     double Ex = 0.0;
     if (*excited == true) {
-      static std::mutex lock;
-      std::lock_guard guard{ lock };
-      std::cout << "EXCITED" << std::endl; // Output cos(theta) for logging
       Ex = 0.477;
     }
     // Now, complete kinematics
