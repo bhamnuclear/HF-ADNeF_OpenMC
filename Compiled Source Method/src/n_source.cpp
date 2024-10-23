@@ -80,9 +80,10 @@ public:
     // std::lock_guard guard{ lock };
     // std::cout << thetaLab*180/M_PI << std::endl; // Output cos(theta) for logging
     
-    // Set neutron position (-42 cm for beam y offset from model origin)
-    particle.r = {x_pos, y_pos - 42, z_pos};
-    //particle.r = {pos_r*std::cos(pos_ang), pos_r*std::sin(pos_ang) - 42, z_pos}; 
+    // Set neutron position
+    // y: -42 cm for beam y offset from model origin
+    // z: -0.01 offset since lithium target is centred at z=0
+    particle.r = {x_pos, y_pos - 42, z_pos - 0.01};
     //particle.r = {0., -42., 0.};
     return particle;
   }
@@ -277,7 +278,7 @@ private:
       // Now check whether we could have populated an excited state in berilium-8
       // This ratio describes the probability of being in an excited state      
       // Sample from this probability (ie. random number above or below)
-      if (energy > 2.5) {
+      if (energy > 2.37) {
         double ratio = linInterp(XS_1_x, XS_1_y, energy)/linInterp(XS_0_x, XS_0_y, energy);
         if (openmc::prn(seed) < ratio) {
           *excited = true;  // Set excited variable by pointer reference
@@ -334,9 +335,26 @@ private:
       // If an excited state of Be is produced, we take the A_i parameters from the excited distributions
       // Since we only have two data points for these, we linearly interpolate
       if (*excited == true) {
+     	// static std::mutex lock;
+    	// std::lock_guard guard{ lock };
+    	// std::cout << "Sampled angle" << std::endl; // Output cos(theta) for logging
+      	if (Ep >= 2.5) {
+      	// static std::mutex lock;
+    	// std::lock_guard guard{ lock };
+    	// std::cout << "linterp" << std::endl; // Output cos(theta) for logging
         A[0] = linInterp(XS_ang1_E, XS_ang1_A0, Ep);
         A[1] = linInterp(XS_ang1_E, XS_ang1_A1, Ep);
         A[2] = linInterp(XS_ang1_E, XS_ang1_A2, Ep);
+      	}
+      	// Where we have no data, assume isotropic
+      	else {
+      		// static std::mutex lock;
+    		// std::lock_guard guard{ lock };
+    		// std::cout << "isotropic" << std::endl; // Output cos(theta) for logging
+      		A[0] = 1.;
+      		A[1] = 0.;
+      		A[2] = 0.;
+      	}
       }
       // Otherwise, we must have produced the Be in the ground state
       // Here, we sample from the cubic splines that we have previously found
@@ -376,6 +394,7 @@ private:
         return 0;
       }
     }
+
   }
 
   double ConvertThetaCMtoLab(double Ep, double thetaCM, bool* excited) const {
@@ -383,22 +402,14 @@ private:
     // First, check if Be is excited. If so, this energy needs to be accounted for in the kinematics
     double Ex = 0.0;
     if (*excited == true) {
-      Ex = 0.477;
+      Ex = 0.429;
     }
     // Now, complete kinematics
     // We can compute the ratio of the velocities of the CM and of the neutron (vCM/vn)
-    double gamma = std::sqrt(((mp*mn)/(mBe*mLi))*(Ep/(Ep+(Q-Ex)*(1.+mp/mLi)))); //  Calculate gamma for the conversion to lab COM
-    // double gamma = (mp*mn*Ep)/((mBe*(mBe+mn)*(Q-Ex)) + (mBe*(mBe+mn-mp)*Ep)); //  Calculate gamma for the conversion to lab COM
-    // if (gamma < 0) {
-    //   return 0;
-    // }
-    // Set mutex to prevent cout from being accessed by multiple processes simultaneously
-    // static std::mutex lock;
-    // std::lock_guard guard{ lock };
-    // std::cout << gamma << std::endl; // Output cos(theta) for logging
-	  // gamma = std::sqrt(gamma)*((mp+mLi)/(mn+mBe)); // Account for change in CM velocity 
+    double gamma = std::sqrt(((mp*mn)/(mBe*mLi))*(Ep/(Ep+(Q-Ex)*(1.+mp/mLi)))); //  Calculate gamma for the conversion to lab COM\
     // And use this in the angle conversion formula
     double theta = std::atan2((std::sin(thetaCM)), (std::cos(thetaCM) + gamma));
+    // std::cout << "Calculated theta lab: " << theta << std::endl; // Output cos(theta) for logging
     return theta;
   }
 
