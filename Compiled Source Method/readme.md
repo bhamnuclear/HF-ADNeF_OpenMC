@@ -33,7 +33,7 @@ The parameter `Ep` is the energy of the proton beam, which should be passed as a
 
 **See the Jupyter notebook in the examples folder for a simple use case.**
 
-> [!Caution] WIP
+> [!Caution]
 > This code is a work in progress. There may be bugs and/or inaccuracies. Please get in contact if you notice anything which is not behaving as expected.
 
 ### References:
