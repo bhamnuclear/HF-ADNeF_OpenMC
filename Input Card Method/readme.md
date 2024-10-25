@@ -7,7 +7,7 @@ The src folder contains the .cpp file which has been produced by converting MCNP
 
 If you wish to use a specific energy, navigate to the required folder and run:
 
-```cmake --S src --B build```
+```cmake -S src -B build```
 
 Then:
 
