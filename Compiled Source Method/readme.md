@@ -9,7 +9,7 @@ In brief:
 - The emission vector of the neutrons is sampled from the differential cross section data given by Liskien and Paulsen [^2].
 - The neutrons are given a weight such that tally results are per mC of proton current.
 
-### Instructions:
+### Installation:
 The src folder contains the .cpp file which samples neutron starting conditions from physical principles and experimentally measured data.
 
 To use the code, first compile it via:
@@ -20,9 +20,21 @@ Then:
 
 ```cmake --build build```
 
-You can then use the libsource.so file as a compiled starting source in an OpenMC simulation. It requires a single parameter which is the energy of the proton beam incident upon the lithium target, which should be passed as a string. See the examples folder for how it can be implemented.
-
 For more information on using compiled sources, see the OpenMC documentation: https://docs.openmc.org/en/stable/usersguide/settings.html.
+
+### Usage:
+You can then use the libsource.so file as a compiled starting source in an OpenMC simulation. 
+
+A ```CompiledSource``` can be initialised with the following line:
+```
+settings.source = openmc.CompiledSource('<path_to_source>/build/libsource.so', Ep)
+```
+The parameter `Ep` is the energy of the proton beam, which should be passed as a string. The maximum energy that can be used is Ep = 2.6 MeV.
+
+**See the Jupyter notebook in the examples folder for a simple use case.**
+
+> [!Caution]
+> This code is a work in progress. There may be bugs and/or inaccuracies. Please get in contact if you notice anything which is not behaving as expected.
 
 ### References:
 [^1]: C. L. Lee and X. L. Zhou. “Thick target neutron yields for the 7Li(p,n)7Be reaction near threshold”. In: Nuclear Instruments and Methods in Physics Research Section B: Beam Interactions with Materials and Atoms 152.1 (Apr. 1999), pp. 1–11. issn: 0168-583X. doi: 10.1016/S0168-583X(99)00026-9.
