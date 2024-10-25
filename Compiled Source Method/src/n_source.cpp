@@ -82,8 +82,9 @@ public:
     
     // Set neutron position
     // y: -42 cm for beam y offset from model origin
-    // z: -0.01 offset since lithium target is centred at z=0
-    particle.r = {x_pos, y_pos - 42, z_pos - 0.01};
+    // z: Need to convert z_pos from mm to cm
+    // z: And -0.01 offset since lithium target is centred at z=0
+    particle.r = {x_pos, y_pos - 42, z_pos/10 - 0.01}; 
     //particle.r = {0., -42., 0.};
     return particle;
   }

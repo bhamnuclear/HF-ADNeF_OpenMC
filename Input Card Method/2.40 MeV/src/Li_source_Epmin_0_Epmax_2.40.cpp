@@ -1622,10 +1622,13 @@ class Li_source : public openmc::Source {
 		// Set directional vector    
 		particle.u = {std::sin(theta)*std::cos(phi), std::sin(theta)*std::sin(phi), mu};
 
-		// Sample particle starting position
-		openmc::Normal r_dist(0, 1.7);    
-		double x_pos = r_dist.sample(seed);    
-		double y_pos = r_dist.sample(seed);    
+		// Sample particle starting position in x-y plane (10 cm disk)
+		openmc::PowerLaw r_dist(0,5,1);
+		pos_r = r_dist.sample(seed);
+		pos_ang = 2.0*M_PI*openmc::prn(seed);
+		
+		double x_pos = pos_r*std::cos(pos_ang);
+		double y_pos = pos_r*std::sin(pos_ang);
 		// Set position of particle    
 		particle.r = {x_pos, y_pos - 42, 0.0};
 
