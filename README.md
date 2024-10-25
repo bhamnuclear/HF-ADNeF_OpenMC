@@ -15,7 +15,7 @@ OpenMC will need to be installed on your system. This can be done via the instru
 
 You will also need to download the required cross section data for OpenMC, which can be found here: https://openmc.org/official-data-libraries/. The path to the cross_sections.xml file will need to be added to the PATH variable, which can be done by adding
 ```
-export OPENMC_CROSS_SECTIONS="/home/<user>/openmcdata/endfb-viii.0-hdf5/cross_sections.xml"
+export OPENMC_CROSS_SECTIONS="/home/<path_to_cross_section_data>/cross_sections.xml"
 ```
 to your bashrc file.
 
