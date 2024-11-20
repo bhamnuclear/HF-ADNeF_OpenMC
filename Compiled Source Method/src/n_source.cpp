@@ -85,7 +85,7 @@ public:
     // z: Need to convert z_pos from mm to cm
     // z: And -0.01 offset since lithium target is centred at z=0
     particle.r = {x_pos, y_pos - 42, z_pos/10 - 0.01}; 
-    //particle.r = {0., -42., 0.};
+    //particle.r = {0., -42., 0.}; // Alternative to use point source starting location
     return particle;
   }
 
