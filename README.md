@@ -21,5 +21,13 @@ to your bashrc file.
 
 To use the custom source files, they will need to be built with cmake as well. Specific instructions can be found in the relevant folders.
 
+#### Optional:
+If you are using the `openmc.deplete` module, then you will also need to download the depletion chain data. This can be found at https://openmc.org/depletion-chains/ or alternatively, you can use the `openmc_data` Python package, available at https://github.com/openmc-data-storage/openmc_data.
+You will then need to add the depletion chain data to your PATH by adding
+```
+export OPENMC_CHAIN_FILE="/home/<path_to_depletion_chain>/chain_data.xml"
+```
+to your bashrc file.
+
 ### Usage
 If you use this code in your work, please reference it accordingly. I will be writing this up as part of my PhD and will update this github when that happens. Please contact me for more information at m.j.conroy@pgr.bham.ac.uk.
