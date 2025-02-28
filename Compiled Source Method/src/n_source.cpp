@@ -22,6 +22,8 @@ public:
   CompiledSource(double Ep) : Ep_{Ep} { 
     // Load data in constructor so that it can be accessed by all future sample calls across all threads
     loadData();
+    // Set maximum depth variable for all sampling at this energy to use
+    setMaxDepth();
   }
 
   // Samples from an instance of this class.
@@ -122,10 +124,9 @@ private:
   const double mBe=7.016929;
   const double amu=931.4941;
   const double Q=-1.64424;
-  const double max_depth = 0.2; // mm
   const double Ethresh = 1.8804; // MeV
   const int max_samples = 1000;
-  
+  double max_depth = 0.2; // mm
   
   void loadData() {
     std::cout << " Reading data for compiled source..." << std::endl;
@@ -221,6 +222,16 @@ private:
     file5.close(); 
 
   };
+
+
+  void setMaxDepth() {
+    // std::cout << "Setting maximum depth" << std::endl;
+    // Coefficients for linear fit to negative inverse stopping power
+    const double m = -0.00512339;
+    const double c = -0.00328388;
+    // Integral of negative inverse stopping power used to calculate maximum range
+    max_depth = 10 * ((m/2) * (Ethresh*Ethresh - Ep_*Ep_) + c*(Ethresh-Ep_)) + 0.001; // Add 1 micrometer extra range ensure threshold is covered
+  }
 
 
   double linInterp(const std::vector<double>& x_values, const std::vector<double>& y_values, double x) const{
