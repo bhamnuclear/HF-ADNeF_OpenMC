@@ -349,7 +349,7 @@ private:
       	}
       	// Where we have no data, assume isotropic
       	else {
-      		// static std::mutex lock;
+		// static std::mutex lock;
     		// std::lock_guard guard{ lock };
     		// std::cout << "isotropic" << std::endl; // Output cos(theta) for logging
       		A[0] = 1.;
@@ -370,9 +370,9 @@ private:
       }
     }
     else {
-      A[0]=1.;
-		  A[1]=0.;
-		  A[2]=0.;
+	A[0]=1.;
+      	A[1]=0.;
+	A[2]=0.;
     }
     // Now, perform rejection sampling]
     while (true) {
