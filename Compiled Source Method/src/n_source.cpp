@@ -343,7 +343,7 @@ private:
     int i = 0;
     // Below where we have measured data we assume (fairly) that neutron emission is isotropic, so A = [1,0,0]
     // Above this point, we must sample from experimental data
-    if (Ep >= 1.925) {
+    if (Ep >= 1.95) {
       // If an excited state of Be is produced, we take the A_i parameters from the excited distributions
       // Since we only have two data points for these, we linearly interpolate
       if (*excited == true) {
