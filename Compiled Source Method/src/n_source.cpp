@@ -418,7 +418,8 @@ private:
     }
     // Now, complete kinematics
     // We can compute the ratio of the velocities of the CM and of the neutron (vCM/vn)
-    double gamma = std::sqrt(((mp*mn)/(mBe*mLi))*(Ep/(Ep+(Q-Ex)*(1.+mp/mLi)))); //  Calculate gamma for the conversion to lab COM\
+    // double gamma = std::sqrt(((mp*mn)/(mBe*mLi))*(Ep/(Ep+(Q-Ex)*(1.+mp/mLi)))); //  Calculate gamma for the conversion to lab COM
+    double gamma = std::sqrt((mp*mn*Ep*(mn+mBe)) / (mBe*(mp+mLi)*(mp+mLi)*((Q-Ex) + Ep*(mLi/(mp+mLi))))); // Correct gamma without assumption (mLi + mp = mBe + mn)
     // And use this in the angle conversion formula
     double theta = std::atan2((std::sin(thetaCM)), (std::cos(thetaCM) + gamma));
     // std::cout << "Calculated theta lab: " << theta << std::endl; // Output cos(theta) for logging
