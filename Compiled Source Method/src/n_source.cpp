@@ -86,8 +86,8 @@ public:
     // y: -42 cm for beam y offset from model origin
     // z: Need to convert z_pos from mm to cm
     // z: And -0.01 offset since lithium target is centred at z=0
-    particle.r = {x_pos, y_pos - 42, z_pos/10 - 0.01}; 
-    //particle.r = {0., -42., 0.}; // Alternative to use point source starting location
+    // particle.r = {x_pos, y_pos - 42, z_pos/10 - 0.01}; 
+    particle.r = {0., -42., 0.}; // Alternative to use point source starting location
     return particle;
   }
 
@@ -118,13 +118,13 @@ private:
   std::vector<double> yield_E;
   std::vector<double> yield_N;
   // Define required constants
-  const double mp=1.007825;
+  const double mp=1.007276;//1.007825;
   const double mn=1.008665;
   const double mLi=7.016004;
   const double mBe=7.016929;
   const double amu=931.4941;
   const double Q=-1.64424;
-  const double Ethresh = 1.8804; // MeV
+  const double Ethresh = 1.8803; // MeV
   const int max_samples = 1000;
   double max_depth = 0.2; // mm
   
@@ -277,15 +277,22 @@ private:
         // If not, then use 'continue' to skip to the next iteration of the while loop
         continue;
       }
-      // Sample the cross section from tablated data
-      double XS = linInterp(XS_t_x, XS_t_y, energy);
+      double XS = 0.;
       // If the proton energy is low, then use theoretical calculations instead of tabulated data
-      if (energy < 1.925) {
+      if (energy <= 1.925) {
         // Constants and equation from Lee and Zhou
         double C0 = 6; // Consistent with Gibbons and Macklin XS data
         double A = 164.913; // mb MeV/sr
         double x = C0*std::sqrt(1-Ethresh/energy);
         XS = 4.*M_PI*(A*x)/(energy*(1+x)*(1+x));
+
+        // // Apply tanh(E) fudge
+        // double softness = 0.000076;
+        // XS *= tanh((energy-Ethresh)/softness);
+      }
+      // Otherwise, sample the cross section from tablated data
+      else {
+        XS = linInterp(XS_t_x, XS_t_y, energy);
       }
       // Now check whether we could have populated an excited state in berilium-8
       // This ratio describes the probability of being in an excited state      
