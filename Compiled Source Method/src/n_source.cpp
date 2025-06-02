@@ -23,7 +23,7 @@ public:
     // Load data in constructor so that it can be accessed by all future sample calls across all threads
     loadData();
     // Set maximum depth variable for all sampling at this energy to use
-    setMaxDepth();
+    // setMaxDepth();
   }
 
   // Samples from an instance of this class.
@@ -32,8 +32,18 @@ public:
     openmc::SourceSite particle;
     // Set particle type to neutron
     particle.particle = openmc::ParticleType::neutron;
+
+    // Optionally smear energy
+    // Define a normal distribution to sample from
+    double E_sigma = 0.0075; // 1.2 keV --> MeV
+    openmc::Normal E_dist(Ep_, E_sigma);
+    // Then sample from it
+    double EE = E_dist.sample(seed);
+
+    // double EE = Ep_; // Uncomment if smearing is to be turned off
+
     // Interpolate strength of source (per mC) for input proton energy
-    particle.wgt = linInterp(yield_E, yield_N, Ep_);
+    particle.wgt = linInterp(yield_E, yield_N, EE);
     // Sample particle starting position in x-y plane (10 cm disk)
     openmc::PowerLaw r_dist(0, 5, 1);
     double pos_r = r_dist.sample(seed);
@@ -51,10 +61,10 @@ public:
     double phiLab = 1.0;
     double energy = 1.0;
     bool excited = false;
-      // Use a while loop to avoid returning erroneous samples
+    // Use a while loop to avoid returning erroneous samples
     while (true) {
       // First, find the energy of the proton at the point of interaction in the lithium (need to return the interaction depth for OpenMC)
-      Eint = InteractionE(Ep_, seed, &z_pos, &excited);
+      Eint = InteractionE(EE, seed, &z_pos, &excited);
       // Then, sample the neutron emission angle in the CM frame
       thetaCM = InteractionTheta(Eint, seed, &excited);
       // Since thetaCM returns 0 when it is invalid, skip and sample again
@@ -120,11 +130,11 @@ private:
   // Define required constants
   const double mp=1.007276;//1.007825;
   const double mn=1.008665;
-  const double mLi=7.016004;
-  const double mBe=7.016929;
+  const double mLi=7.014358;//7.016004;
+  const double mBe=7.013809;//7.016929;
   const double amu=931.4941;
   const double Q=-1.64424;
-  const double Ethresh = 1.8803; // MeV
+  const double Ethresh = 1.880356;//1.8803; // MeV
   const int max_samples = 1000;
   double max_depth = 0.2; // mm
   
@@ -132,7 +142,7 @@ private:
     std::cout << " Reading data for compiled source..." << std::endl;
     // Load total XS_t data
     // std::ifstream file0("/home/ADF/mjc970/Documents/High Flux Neutron Source/Python Module/hfadnef/hfadnef/src/XS_t_endf.txt");
-    std::ifstream file0(FilePath + "XS_t_ideal.txt");
+    std::ifstream file0(FilePath + "XS_t_ideal.txt"); //XS_t_ideal.txt" l&p_xs
     if (!file0.is_open()) {
       // Handle file opening error
       throw std::runtime_error("Failed to open file: XS_t_ideal.txt");
@@ -243,6 +253,7 @@ private:
     // Check if x is within the range of x values
     
     if (x < x_values.front() || x > x_values.back()) {
+      std::cout << x << " " << x_values.front()<< " " << x_values.back() << std::endl;
       throw std::out_of_range("Input x value is outside the range of x values");
     }
     // Find the interval where x lies
