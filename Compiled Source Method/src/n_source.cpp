@@ -34,13 +34,13 @@ public:
     particle.particle = openmc::ParticleType::neutron;
 
     // Optionally smear energy
-    // Define a normal distribution to sample from
-    double E_sigma = 0.0075; // 1.2 keV --> MeV
-    openmc::Normal E_dist(Ep_, E_sigma);
-    // Then sample from it
-    double EE = E_dist.sample(seed);
+    // // Define a normal distribution to sample from
+    // double E_sigma = 0.0075; // 1.2 keV --> MeV
+    // openmc::Normal E_dist(Ep_, E_sigma);
+    // // Then sample from it
+    // double EE = E_dist.sample(seed);
 
-    // double EE = Ep_; // Uncomment if smearing is to be turned off
+    double EE = Ep_; // Uncomment if smearing is to be turned off
 
     // Interpolate strength of source (per mC) for input proton energy
     particle.wgt = linInterp(yield_E, yield_N, EE);
