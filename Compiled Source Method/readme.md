@@ -31,6 +31,8 @@ settings.source = openmc.CompiledSource('<path_to_source>/build/libsource.so', E
 ```
 The parameter `Ep` is the energy of the proton beam, which should be passed as a string. The maximum energy that can be used is Ep = 2.6 MeV.
 
+If you wish to *add an energy width* to the incident proton beam, you will need to edit the `n_source.cpp` file. Simply uncomment/comment the relevant sections within the main sampling loop.
+
 **See the Jupyter notebook in the examples folder for a simple use case.**
 
 > [!Caution]
