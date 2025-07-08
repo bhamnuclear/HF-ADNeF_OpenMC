@@ -23,7 +23,7 @@ public:
     // Load data in constructor so that it can be accessed by all future sample calls across all threads
     loadData();
     // Set maximum depth variable for all sampling at this energy to use
-    // setMaxDepth();
+    setMaxDepth();
   }
 
   // Samples from an instance of this class.
@@ -33,7 +33,8 @@ public:
     // Set particle type to neutron
     particle.particle = openmc::ParticleType::neutron;
 
-    // Optionally smear energy
+    // Uncomment/comment to optionally smear energy
+
     // // Define a normal distribution to sample from
     // double E_sigma = 0.0075; // 1.2 keV --> MeV
     // openmc::Normal E_dist(Ep_, E_sigma);
@@ -96,8 +97,8 @@ public:
     // y: -42 cm for beam y offset from model origin
     // z: Need to convert z_pos from mm to cm
     // z: And -0.01 offset since lithium target is centred at z=0
-    // particle.r = {x_pos, y_pos - 42, z_pos/10 - 0.01}; 
-    particle.r = {0., -42., 0.}; // Alternative to use point source starting location
+    particle.r = {x_pos, y_pos - 42, z_pos/10 - 0.01}; 
+    //particle.r = {0., -42., 0.}; // Alternative to use point source starting location
     return particle;
   }
 
@@ -253,7 +254,7 @@ private:
     // Check if x is within the range of x values
     
     if (x < x_values.front() || x > x_values.back()) {
-      std::cout << x << " " << x_values.front()<< " " << x_values.back() << std::endl;
+      // std::cout << x << " " << x_values.front()<< " " << x_values.back() << std::endl;
       throw std::out_of_range("Input x value is outside the range of x values");
     }
     // Find the interval where x lies
@@ -296,10 +297,6 @@ private:
         double A = 164.913; // mb MeV/sr
         double x = C0*std::sqrt(1-Ethresh/energy);
         XS = 4.*M_PI*(A*x)/(energy*(1+x)*(1+x));
-
-        // // Apply tanh(E) fudge
-        // double softness = 0.000076;
-        // XS *= tanh((energy-Ethresh)/softness);
       }
       // Otherwise, sample the cross section from tablated data
       else {
